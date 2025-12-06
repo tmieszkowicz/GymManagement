@@ -1,4 +1,4 @@
-using GymManagement.Application.Subscriptions.Commands.CreateSubscription;
+using GymManagement.Application.Subscriptions.Commands;
 using GymManagement.Contracts.Subscriptions;
 using GymManagement.Shared.Mediator;
 

@@ -1,6 +1,8 @@
 using GymManagement.Shared.Mediator;
 
-namespace GymManagement.Application.Subscriptions.Commands.CreateSubscription;
+namespace GymManagement.Application.Subscriptions.Commands;
+
+public record CreateSubscriptionCommand(string subscriptionType, Guid adminId) : IRequest<Guid>;
 
 public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, Guid>
 {
