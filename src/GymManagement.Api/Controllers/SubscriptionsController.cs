@@ -1,6 +1,6 @@
 using GymManagement.Application.Subscriptions.Commands;
 using GymManagement.Contracts.Subscriptions;
-using GymManagement.Shared.Mediator;
+using GymManagement.MediatorLibrary;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,18 +18,25 @@ public class SubscriptionsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateSubscriptionAsync(CreateSubscriptionRequest request)
+    public async Task<IActionResult> CreateSubscription(CreateSubscriptionRequest request)
     {
         var command = new CreateSubscriptionCommand(
             request.SubscriptionType.ToString(),
             request.AdminId);
 
-        var subscriptionId = await _mediator.Send(command);
+        var result = await _mediator.Send(command);
 
-        var response = new SubscriptionResponse(
-            subscriptionId,
-            request.SubscriptionType);
+        return Ok(result);
+        // if (result.IsFailure)
+        // {
+        //     // do something
+        // }
+        // var subscriptionId = result.Response;
 
-        return Ok(response);
+        // var response = new SubscriptionResponse(
+        //     subscriptionId,
+        //     request.SubscriptionType);
+
+        // return Ok(response);
     }
 }

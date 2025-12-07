@@ -1,3 +1,4 @@
-namespace GymManagement.Shared.Mediator;
+namespace GymManagement.MediatorLibrary;
+
 
 public interface IRequest<TResponse> { }
