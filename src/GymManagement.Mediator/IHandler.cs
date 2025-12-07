@@ -1,6 +1,6 @@
 namespace GymManagement.MediatorLibrary;
 
-public interface IHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
+public interface IHandler<in TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     Task<TResponse> Handle(TRequest request);
 }
