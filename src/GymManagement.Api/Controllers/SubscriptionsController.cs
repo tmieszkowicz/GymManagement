@@ -24,8 +24,20 @@ public class SubscriptionsController : ControllerBase
             request.SubscriptionType.ToString(),
             request.AdminId);
 
-        var result = await _mediator.Send(command);
+        Result<Guid> createSubscriptionResult = await _mediator.Send(command);
 
-        return Ok(result);
+        //TODO: thats a possibility right :/
+        // return createSubscriptionResult.Match(
+        //     guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
+        //     errors => Problem());
+
+        if (createSubscriptionResult.IsFailure)
+        {
+            return Problem();
+        }
+
+        var response = new SubscriptionResponse(createSubscriptionResult.Value, request.SubscriptionType);
+
+        return Ok(response);
     }
 }
