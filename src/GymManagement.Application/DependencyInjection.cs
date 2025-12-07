@@ -41,8 +41,6 @@ public static class DependencyInjection
             services.TryAdd(serviceDescriptor);
         }
 
-        // services.AddSingleton<IMediator>(x => new Mediator(x.GetRequiredService, handlerInfo));
-
         services.Add(new ServiceDescriptor(typeof(IMediator),
                     x => new Mediator((Type t) => x.GetRequiredService(t)!, handlerInfo),
                     lifetime));

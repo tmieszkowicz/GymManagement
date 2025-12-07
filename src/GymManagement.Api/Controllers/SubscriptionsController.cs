@@ -27,16 +27,5 @@ public class SubscriptionsController : ControllerBase
         var result = await _mediator.Send(command);
 
         return Ok(result);
-        // if (result.IsFailure)
-        // {
-        //     // do something
-        // }
-        // var subscriptionId = result.Response;
-
-        // var response = new SubscriptionResponse(
-        //     subscriptionId,
-        //     request.SubscriptionType);
-
-        // return Ok(response);
     }
 }

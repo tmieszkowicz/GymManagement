@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services
-    // .AddMediator(ServiceLifetime.Scoped, typeof(GymManagement.Application.DependencyInjection))
     .AddApplication()
     .AddInfrastructure();
 
