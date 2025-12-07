@@ -12,6 +12,7 @@ public class Mediator : IMediator
     }
 
     public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request)
+        where TResponse : ResultBase
     {
         if (request == null) throw new ArgumentNullException(nameof(request));
 

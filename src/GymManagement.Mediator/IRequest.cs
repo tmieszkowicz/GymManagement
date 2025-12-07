@@ -1,3 +1,5 @@
 namespace GymManagement.MediatorLibrary;
 
-public interface IRequest<TResponse> { }
+public interface IRequest<TResponse>
+    where TResponse : ResultBase
+{ }
