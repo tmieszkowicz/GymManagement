@@ -3,6 +3,14 @@ namespace GymManagement.MediatorLibrary;
 public sealed record Error(string Code, string? Description = null)
 {
     public static readonly Error None = new(string.Empty);
+
+    //TODO: implement these
+    public static readonly Error Conflict = new(string.Empty);
+    public static readonly Error Failure = new(string.Empty);
+    public static readonly Error NotFound = new(string.Empty);
+    public static readonly Error Unexpected = new(string.Empty);
+    public static readonly Error Validation = new(string.Empty);
+
     public static implicit operator Result(Error error) => Result.Failure(error);
 }
 
