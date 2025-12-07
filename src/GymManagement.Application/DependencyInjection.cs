@@ -34,7 +34,18 @@ public static class DependencyInjection
 
             requests.ForEach(x =>
             {
-                handlerInfo[x] = handlers.SingleOrDefault(xx => x == xx.GetInterface("IHandler`2")!.GetGenericArguments()[0]);
+                var handler = handlers.SingleOrDefault(xx =>
+                {
+                    var iface = xx.GetInterfaces().SingleOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IHandler<,>));
+                    if (iface == null) return false;
+                    var arg = iface.GetGenericArguments()[0];
+                    return x == arg;
+                });
+
+                if (handler != null)
+                {
+                    handlerInfo[x] = handler;
+                }
             });
 
             var serviceDescriptor = handlers.Select(x => new ServiceDescriptor(x, x, lifetime));
