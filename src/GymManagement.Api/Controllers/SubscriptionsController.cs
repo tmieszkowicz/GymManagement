@@ -1,5 +1,6 @@
 using GymManagement.Application.Subscriptions.Commands;
 using GymManagement.Contracts.Subscriptions;
+using GymManagement.Domain.Subscriptions;
 using GymManagement.MediatorLibrary;
 
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,10 @@ public class SubscriptionsController : ControllerBase
             request.SubscriptionType.ToString(),
             request.AdminId);
 
-        Result<Guid> createSubscriptionResult = await _mediator.Send(command);
+        Result<Subscription> createSubscriptionResult = await _mediator.Send(command);
 
         return createSubscriptionResult.Map<IActionResult>(
-            OnSuccess: guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
+            OnSuccess: subscription => Ok(new SubscriptionResponse(subscription.Id, request.SubscriptionType)),
             OnFailure: error => Problem(title: error.Code, detail: error.Description)
         );
     }

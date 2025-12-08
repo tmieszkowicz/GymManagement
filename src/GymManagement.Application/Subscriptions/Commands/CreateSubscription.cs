@@ -1,18 +1,36 @@
-using GymManagement.Application.Subscriptions.Errors;
+using GymManagement.Application.Common.Interfaces;
+using GymManagement.Domain.Subscriptions;
 using GymManagement.MediatorLibrary;
 
 namespace GymManagement.Application.Subscriptions.Commands;
 
-public record CreateSubscriptionCommand(string subscriptionType, Guid adminId) : IRequest<Result<Guid>>;
+public record CreateSubscriptionCommand(string subscriptionType, Guid adminId) : IRequest<Result<Subscription>>;
 
-public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionCommand, Result<Guid>>
+public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
-    public Task<Result<Guid>> Handle(CreateSubscriptionCommand request)
+    private readonly ISubscriptionsRepository _subscriptionsRepository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
     {
-        // return SubscriptionErrors.SubscriptionCreationFailed;
+        _subscriptionsRepository = subscriptionsRepository;
+        _unitOfWork = unitOfWork;
 
-        Guid guid = Guid.NewGuid();
+    }
 
-        return Task.FromResult(Result<Guid>.Success(guid));
+    public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request)
+    {
+        // Create a subscription
+        var subscription = new Subscription
+        {
+            Id = Guid.NewGuid()
+        };
+
+        // Add it to the database
+        await _subscriptionsRepository.AddSubscriptionAsync(subscription);
+        await _unitOfWork.CommitChangesAsync();
+
+        // Return subscription
+        return Result<Subscription>.Success(subscription);
     }
 }
