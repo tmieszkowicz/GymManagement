@@ -26,18 +26,9 @@ public class SubscriptionsController : ControllerBase
 
         Result<Guid> createSubscriptionResult = await _mediator.Send(command);
 
-        //TODO: thats a possibility right :/
-        // return createSubscriptionResult.Match(
-        //     guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
-        //     errors => Problem());
-
-        if (createSubscriptionResult.IsFailure)
-        {
-            return Problem();
-        }
-
-        var response = new SubscriptionResponse(createSubscriptionResult.Value, request.SubscriptionType);
-
-        return Ok(response);
+        return createSubscriptionResult.Map(
+            OnSuccess: guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
+            OnFailure: error => Problem(detail: error.Description, title: error.Code)
+        );
     }
 }

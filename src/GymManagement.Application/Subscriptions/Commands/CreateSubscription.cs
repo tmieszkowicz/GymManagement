@@ -9,7 +9,10 @@ public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionComma
 {
     public Task<Result<Guid>> Handle(CreateSubscriptionCommand request)
     {
-        // return Task.FromResult(SubscriptionErrors.SubscriptionCreationFailed);
-        return Task.FromResult(Result<Guid>.Success(Guid.NewGuid()));
+        // return SubscriptionErrors.SubscriptionCreationFailed;
+
+        Guid guid = Guid.NewGuid();
+
+        return Task.FromResult(Result<Guid>.Success(guid));
     }
 }
