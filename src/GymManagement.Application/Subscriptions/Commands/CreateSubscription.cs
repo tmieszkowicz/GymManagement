@@ -4,18 +4,18 @@ using GymManagement.MediatorLibrary;
 
 namespace GymManagement.Application.Subscriptions.Commands;
 
-public record CreateSubscriptionCommand(string subscriptionType, Guid adminId) : IRequest<Result<Subscription>>;
+public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
 
 public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
     private readonly ISubscriptionsRepository _subscriptionsRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    // private readonly IUnitOfWork _unitOfWork;
 
-    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
+    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository)
+    // public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
     {
         _subscriptionsRepository = subscriptionsRepository;
-        _unitOfWork = unitOfWork;
-
+        // _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request)
@@ -23,12 +23,13 @@ public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionComma
         // Create a subscription
         var subscription = new Subscription
         {
-            Id = Guid.NewGuid()
+            Id = Guid.NewGuid(),
+            SubscriptionType = request.SubscriptionType
         };
 
         // Add it to the database
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
-        await _unitOfWork.CommitChangesAsync();
+        // await _unitOfWork.CommitChangesAsync();
 
         // Return subscription
         return Result<Subscription>.Success(subscription);

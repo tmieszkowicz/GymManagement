@@ -1,4 +1,5 @@
 using GymManagement.Application.Subscriptions.Commands;
+using GymManagement.Application.Subscriptions.Queries;
 using GymManagement.Contracts.Subscriptions;
 using GymManagement.Domain.Subscriptions;
 using GymManagement.MediatorLibrary;
@@ -29,6 +30,19 @@ public class SubscriptionsController : ControllerBase
 
         return createSubscriptionResult.Map<IActionResult>(
             OnSuccess: subscription => Ok(new SubscriptionResponse(subscription.Id, request.SubscriptionType)),
+            OnFailure: error => Problem(title: error.Code, detail: error.Description)
+        );
+    }
+
+    [HttpGet("{subscriptionId:guid}")]
+    public async Task<IActionResult> GetSubscription(Guid subscriptionId)
+    {
+        var query = new GetSubscriptionQuery(subscriptionId);
+
+        Result<Subscription> getSubscriptionResult = await _mediator.Send(query);
+
+        return getSubscriptionResult.Map<IActionResult>(
+            OnSuccess: subscription => Ok(new SubscriptionResponse(subscription.Id, Enum.Parse<SubscriptionType>(subscription.SubscriptionType))),
             OnFailure: error => Problem(title: error.Code, detail: error.Description)
         );
     }

@@ -4,12 +4,11 @@ public sealed record Error(string Code, string? Description = null)
 {
     public static readonly Error None = new(string.Empty);
 
-    //TODO: implement these
-    public static readonly Error Conflict = new(string.Empty);
-    public static readonly Error Failure = new(string.Empty);
-    public static readonly Error NotFound = new(string.Empty);
-    public static readonly Error Unexpected = new(string.Empty);
-    public static readonly Error Validation = new(string.Empty);
+    public static Error NotFound(string description) => new("NOT_FOUND", description);
+    public static Error Validation(string description) => new("VALIDATION", description);
+    public static Error Conflict(string description) => new("CONFLICT", description);
+    public static Error Failure(string description) => new("FAILURE", description);
+    public static Error Unexpected(string description) => new("UNEXPECTED", description);
 
     // public static implicit operator Result(Error error) => Result.Failure(error);
 }
