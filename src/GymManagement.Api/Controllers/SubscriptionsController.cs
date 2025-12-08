@@ -26,9 +26,9 @@ public class SubscriptionsController : ControllerBase
 
         Result<Guid> createSubscriptionResult = await _mediator.Send(command);
 
-        return createSubscriptionResult.Map(
+        return createSubscriptionResult.Map<IActionResult>(
             OnSuccess: guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
-            OnFailure: error => Problem(detail: error.Description, title: error.Code)
+            OnFailure: error => Problem(title: error.Code, detail: error.Description)
         );
     }
 }
