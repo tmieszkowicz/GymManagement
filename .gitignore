@@ -1,6 +1,7 @@
 #Custom
 README.md
 *.vscode
+*.db
 
 # Build results
 [Dd]ebug/
