@@ -1,4 +1,4 @@
-using GymManagement.MediatorLibrary;
+using GymManagement.Result;
 
 namespace GymManagement.Application.Subscriptions.Errors;
 

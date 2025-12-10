@@ -1,6 +1,7 @@
 using GymManagement.Application.Common.Interfaces;
 using GymManagement.Domain.Subscriptions;
 using GymManagement.MediatorLibrary;
+using GymManagement.Result;
 
 namespace GymManagement.Application.Subscriptions.Commands;
 

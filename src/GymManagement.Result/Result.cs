@@ -1,4 +1,4 @@
-namespace GymManagement.MediatorLibrary;
+namespace GymManagement.Result;
 
 public sealed record Error(string Code, string? Description = null)
 {

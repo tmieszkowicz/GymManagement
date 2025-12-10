@@ -3,6 +3,7 @@ using GymManagement.Application.Subscriptions.Queries;
 using GymManagement.Contracts.Subscriptions;
 using GymManagement.Domain.Subscriptions;
 using GymManagement.MediatorLibrary;
+using GymManagement.Result;
 
 using Microsoft.AspNetCore.Mvc;
 

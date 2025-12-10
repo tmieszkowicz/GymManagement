@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GymManagement.Domain\GymManagement.Domain.csproj" />
     <ProjectReference Include="..\GymManagement.Mediator\GymManagement.Mediator.csproj" />
+    <ProjectReference Include="..\GymManagement.Result\GymManagement.Result.csproj" />
   </ItemGroup>
 
   <ItemGroup>
