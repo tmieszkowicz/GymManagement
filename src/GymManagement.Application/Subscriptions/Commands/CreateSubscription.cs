@@ -10,13 +10,12 @@ public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) :
 public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
     private readonly ISubscriptionsRepository _subscriptionsRepository;
-    // private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository)
-    // public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
+    public CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
     {
         _subscriptionsRepository = subscriptionsRepository;
-        // _unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request)
@@ -30,7 +29,7 @@ public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionComma
 
         // Add it to the database
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
-        // await _unitOfWork.CommitChangesAsync();
+        await _unitOfWork.CommitChangesAsync();
 
         // Return subscription
         return Result<Subscription>.Success(subscription);
