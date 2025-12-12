@@ -19,7 +19,7 @@ public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
 
         builder.Property(s => s.SubscriptionType)
             .HasConversion(
-                subscriptionType => subscriptionType.Value,
-                value => SubscriptionType.FromValue(value)!);
+                subscriptionType => subscriptionType.Name,
+                value => SubscriptionType.FromName(value)!);
     }
 }
