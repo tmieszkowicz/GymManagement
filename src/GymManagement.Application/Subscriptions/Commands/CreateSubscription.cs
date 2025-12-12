@@ -5,7 +5,7 @@ using GymManagement.Result;
 
 namespace GymManagement.Application.Subscriptions.Commands;
 
-public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
+public record CreateSubscriptionCommand(SubscriptionType SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
 
 public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
@@ -21,11 +21,10 @@ public class CreateSubscriptionCommandHandler : IHandler<CreateSubscriptionComma
     public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request)
     {
         // Create a subscription
-        var subscription = new Subscription
-        {
-            Id = Guid.NewGuid(),
-            SubscriptionType = request.SubscriptionType
-        };
+        var subscription = new Subscription(
+            subscriptionType: request.SubscriptionType,
+            adminId: request.AdminId
+        );
 
         // Add it to the database
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
