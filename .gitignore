@@ -2,6 +2,7 @@
 README.md
 *.vscode
 *.db
+**/Migrations/
 
 # Build results
 [Dd]ebug/
