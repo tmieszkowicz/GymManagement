@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GymManagement.SmartEnum\GymManagement.SmartEnum.csproj" />
+    <ProjectReference Include="..\GymManagement.Result\GymManagement.Result.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
