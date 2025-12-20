@@ -15,6 +15,12 @@ public sealed record Error(string Code, string? Description = null)
 
 public record Result<T>
 {
+    public Result()
+    {
+        Error = null;
+        Value = default;
+    }
+
     public Result(T value)
     {
         Value = value;
@@ -33,6 +39,7 @@ public record Result<T>
 
     public Error? Error { get; }
 
+    public static Result<T> Success() => new Result<T>();
     public static Result<T> Success(T value) => new Result<T>(value);
     public static Result<T> Failure(Error error) => new Result<T>(error);
 
