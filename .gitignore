@@ -1,5 +1,4 @@
 #Custom
-README.md
 *.vscode
 *.db
 **/Migrations/
