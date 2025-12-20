@@ -22,4 +22,10 @@ public class SubscriptionRepository : ISubscriptionsRepository
     {
         return await _dbContext.Subscriptions.FindAsync(subscriptionId);
     }
+
+    //TODO: this
+    public Task UpdateAsync(Subscription subscription)
+    {
+        throw new NotImplementedException();
+    }
 }
